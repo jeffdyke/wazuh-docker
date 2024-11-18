@@ -105,6 +105,6 @@ WORKDIR $INSTALL_DIR
 USER wazuh-dashboard
 
 # Services ports
-EXPOSE 443
+EXPOSE 80
 
 ENTRYPOINT [ "/entrypoint.sh" ]
