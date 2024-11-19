@@ -80,7 +80,8 @@ RUN mkdir -p /var/lib/wazuh-indexer && chown 1000:1000 /var/lib/wazuh-indexer &&
     mkdir -p /var/log/wazuh-indexer && chown 1000:1000 /var/log/wazuh-indexer && \
     chmod 700 /usr/share/wazuh-indexer && \
     chmod 600 /usr/share/wazuh-indexer/jvm.options && \
-    chmod 600 /usr/share/wazuh-indexer/opensearch.yml
+    chmod 600 /usr/share/wazuh-indexer/opensearch.yml  && \
+    mkdir -p /mnt/backups && chown 1000:1000 /mnt/backups
 
 USER wazuh-indexer
 

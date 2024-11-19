@@ -3,7 +3,7 @@ node.name: "wazuh.indexer"
 path.data: /var/lib/wazuh-indexer
 path.logs: /var/log/wazuh-indexer
 discovery.type: single-node
-path.repo: ["/var/lib/wazuh-indexer/snapshots"]
+path.repo: ["/mnt/backups"]
 compatibility.override_main_response_version: true
 plugins.security.ssl.http.pemcert_filepath: /usr/share/wazuh-indexer/certs/indexer.pem
 plugins.security.ssl.http.pemkey_filepath: /usr/share/wazuh-indexer/certs/indexer-key.pem
