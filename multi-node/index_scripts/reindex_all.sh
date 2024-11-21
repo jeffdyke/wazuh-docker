@@ -65,6 +65,8 @@ for INDEX in $INDICES; do
     INCOMPLETE_INDICES+=($INDEX)
   fi
   curl -XDELETE ${CURL_PRE} "$REMOTE_HOST/$INDEX"
+  echo "Delete ${INDEX} $?"
+
   TOTAL_INDICES=$((TOTAL_INDICES+1))
   break
 done
