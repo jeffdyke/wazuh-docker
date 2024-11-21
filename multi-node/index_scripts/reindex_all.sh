@@ -30,8 +30,9 @@ for INDEX in $INDICES; do
   if [[ ${INDEX} = *_updated ]]; then
     continue
   fi
-  TOTAL_DOCS_REMOTE=$(curl --silent ${CURL_PRE} "${REMOTE_HOST}/_cat/indices/${INDEX}?h=docs.count")
+  TOTAL_DOCS_REMOTE=$(curl --silent "${CURL_PRE}" "${REMOTE_HOST}/_cat/indices/${INDEX}?h=docs.count")
   echo "Attempting to re-indexing $INDEX ($TOTAL_DOCS_REMOTE docs total)"
+  exit 0
   SECONDS=0
   curl -XPUT ${CURL_PRE} ${REMOTE_HOST}/${INDEX}_updated -d '$(createIndexTmpl)'
   echo "Put Index: $?"
