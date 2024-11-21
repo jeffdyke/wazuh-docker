@@ -5,18 +5,7 @@
 #   exit 1
 # fi
 set -e
-
-REMOTE_HOST=https://0.0.0.0:9200
-PATTERN=wazuh-alerts-*
-LOCAL_HOST=$REMOTE_HOST
-CURL_PRE="-k -u admin:SecretPassword -H 'Content-Type: application/json'"
 MAPPINGS=$(cat ./mappings.json | jq -r . | tr -d "[:space:]" | sed 's:":\\":g')
-INDICES=$(curl ${CURL_PRE} --silent "$REMOTE_HOST/_cat/indices/$PATTERN?h=index")
-TOTAL_INCOMPLETE_INDICES=0
-TOTAL_INDICES=0
-TOTAL_DURATION=0
-INCOMPLETE_INDICES=()
-
 function createIndexTmpl {
   echo '{
     "settings": {
@@ -25,12 +14,25 @@ function createIndexTmpl {
     "mappings": "${MAPPINGS}"
   }'
 }
+
+REMOTE_HOST=https://0.0.0.0:9200
+PATTERN=wazuh-alerts-*
+LOCAL_HOST=$REMOTE_HOST
+CURL_PRE="-k -u admin:SecretPassword -H 'Content-Type: application/json'"
+
+INDICES=$(curl ${CURL_PRE} --silent "$REMOTE_HOST/_cat/indices/$PATTERN?h=index")
+TOTAL_INCOMPLETE_INDICES=0
+TOTAL_INDICES=0
+TOTAL_DURATION=0
+INCOMPLETE_INDICES=()
+
+
 set -x
 for INDEX in $INDICES; do
   if [[ ${INDEX} = *_updated ]]; then
     continue
   fi
-  TOTAL_DOCS_REMOTE=$(curl --silent "${CURL_PRE}" "${REMOTE_HOST}/_cat/indices/${INDEX}?h=docs.count")
+  TOTAL_DOCS_REMOTE=$(curl --silent ${CURL_PRE} "${REMOTE_HOST}/_cat/indices/${INDEX}?h=docs.count")
   echo "Attempting to re-indexing $INDEX ($TOTAL_DOCS_REMOTE docs total)"
   exit 0
   SECONDS=0
