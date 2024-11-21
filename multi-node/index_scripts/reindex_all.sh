@@ -5,21 +5,24 @@
 #   exit 1
 # fi
 set -e
-MAPPINGS=$(cat ./mappings.json | jq -r . | tr -d "[:space:]" | sed 's:":\\":g')
+sg="'"
+MAPPINGS=$(cat ./mappings.json | jq -r . | tr -d "[:space:]")
 function createIndexTmpl {
-  echo '{
-    "settings": {
-      "number_of_shards": 1
+  echo "{
+    \"settings\": {
+      \"number_of_shards\": 1
     },
-    "mappings": "${MAPPINGS}"
-  }'
+    \"mappings\": ${MAPPINGS}
+  }"
 }
 
 REMOTE_HOST=https://0.0.0.0:9200
 PATTERN=wazuh-alerts-*
 LOCAL_HOST=$REMOTE_HOST
-CURL_PRE="-k -u admin:SecretPassword -H 'Content-Type: application/json'"
+JSON_H="Content-Type: application/json"
 
+CURL_PRE="--fail-with-body -k -u admin:SecretPassword"
+# CURL_PRE="-k -u admin:SecretPassword -H \'Content-Type: application/json\'"
 INDICES=$(curl ${CURL_PRE} --silent "$REMOTE_HOST/_cat/indices/$PATTERN?h=index")
 TOTAL_INCOMPLETE_INDICES=0
 TOTAL_INDICES=0
@@ -27,18 +30,17 @@ TOTAL_DURATION=0
 INCOMPLETE_INDICES=()
 
 
-set -x
+# set -x
 for INDEX in $INDICES; do
   if [[ ${INDEX} = *_updated ]]; then
     continue
   fi
   TOTAL_DOCS_REMOTE=$(curl --silent ${CURL_PRE} "${REMOTE_HOST}/_cat/indices/${INDEX}?h=docs.count")
   echo "Attempting to re-indexing $INDEX ($TOTAL_DOCS_REMOTE docs total)"
-  exit 0
   SECONDS=0
-  curl -XPUT ${CURL_PRE} ${REMOTE_HOST}/${INDEX}_updated -d '$(createIndexTmpl)'
+  curl -XPUT ${CURL_PRE} "${REMOTE_HOST}/${INDEX}_updated" -H 'Content-Type: application/json' -d "$(createIndexTmpl)"
   echo "Put Index: $?"
-  curl -XPOST ${CURL_PRE} "${REMOTE_HOST}/_reindex?wait_for_completion=true&pretty=true" -d "{
+  curl -XPOST ${CURL_PRE} "${REMOTE_HOST}/_reindex?wait_for_completion=true&pretty=true" -H 'Content-Type: application/json' -d "{
     \"conflicts\": \"proceed\",
     \"source\": {
       \"index\": \"${INDEX}\"
@@ -52,7 +54,7 @@ for INDEX in $INDICES; do
 
   LOCAL_INDEX_EXISTS=$(curl ${CURL_PRE} -o /dev/null --silent --head --write-out '%{http_code}' "${REMOTE_HOST}/${INDEX}_updated")
   if [ "$LOCAL_INDEX_EXISTS" == "200" ]; then
-    TOTAL_DOCS_REINDEXED=$(curl --silent ${CURL_PRE} "http://$LOCAL_HOST/_cat/indices/${INDEX}_updated?h=docs.count")
+    TOTAL_DOCS_REINDEXED=$(curl --silent ${CURL_PRE} "$REMOTE_HOST/_cat/indices/${INDEX}_updated?h=docs.count")
   else
     TOTAL_DOCS_REINDEXED=0
   fi
