@@ -9,14 +9,14 @@ set -e
 REMOTE_HOST=https://0.0.0.0:9200
 PATTERN=wazuh-alerts-*
 LOCAL_HOST=$REMOTE_HOST
-
+CURL_PRE="-k -u admin:SecretPassword -H 'Content-Type: application/json'"
 MAPPINGS=$(cat ./mappings.json | jq -r . | tr -d "[:space:]" | sed 's:":\\":g')
-INDICES=$(curl --silent "$REMOTE_HOST/_cat/indices/$PATTERN?h=index")
+INDICES=$(curl ${CURL_PRE} --silent "$REMOTE_HOST/_cat/indices/$PATTERN?h=index")
 TOTAL_INCOMPLETE_INDICES=0
 TOTAL_INDICES=0
 TOTAL_DURATION=0
 INCOMPLETE_INDICES=()
-CURL_PRE="-k -u admin:SecretPassword -H 'Content-Type: application/json'"
+
 function createIndexTmpl {
   echo '{
     "settings": {
@@ -25,6 +25,7 @@ function createIndexTmpl {
     "mappings": "${MAPPINGS}"
   }'
 }
+set -x
 for INDEX in $INDICES; do
   if [[ ${INDEX} = *_updated ]]; then
     continue
