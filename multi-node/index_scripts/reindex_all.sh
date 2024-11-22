@@ -5,7 +5,6 @@
 #   exit 1
 # fi
 set -e
-sg="'"
 MAPPINGS=$(cat ./mappings.json | jq -r . | tr -d "[:space:]")
 function createIndexTmpl {
   echo "{
@@ -22,7 +21,6 @@ LOCAL_HOST=$REMOTE_HOST
 JSON_H="Content-Type: application/json"
 
 CURL_PRE="--fail-with-body -k -u admin:SecretPassword"
-# CURL_PRE="-k -u admin:SecretPassword -H \'Content-Type: application/json\'"
 INDICES=$(curl ${CURL_PRE} --silent "$REMOTE_HOST/_cat/indices/$PATTERN?h=index")
 TOTAL_INCOMPLETE_INDICES=0
 TOTAL_INDICES=0
@@ -41,17 +39,16 @@ for INDEX in $INDICES; do
   curl -XPUT ${CURL_PRE} "${REMOTE_HOST}/${INDEX}_updated" -H 'Content-Type: application/json' -d "$(createIndexTmpl)"
   echo "Put Index: $?"
   curl -XPOST ${CURL_PRE} "${REMOTE_HOST}/_reindex?wait_for_completion=true&pretty=true" -H 'Content-Type: application/json' -d "{
-    \"conflicts\": \"proceed\",
     \"source\": {
       \"index\": \"${INDEX}\"
     },
     \"dest\": {
-      \"index\": \"${INDEX}_updated\"
+      \"index\": \"${INDEX}_updated\",
+      \"pipeline\": \"set_cluster\"
     }
   }"
   echo "Re Index: $?"
   duration=$SECONDS
-
   LOCAL_INDEX_EXISTS=$(curl ${CURL_PRE} -o /dev/null --silent --head --write-out '%{http_code}' "${REMOTE_HOST}/${INDEX}_updated")
   if [ "$LOCAL_INDEX_EXISTS" == "200" ]; then
     TOTAL_DOCS_REINDEXED=$(curl --silent ${CURL_PRE} "$REMOTE_HOST/_cat/indices/${INDEX}_updated?h=docs.count")
