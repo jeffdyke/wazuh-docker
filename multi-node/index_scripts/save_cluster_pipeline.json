@@ -1,0 +1,17 @@
+{
+  "description": "Adds wazuh cluster names to each document",
+  "processors": [
+   {
+     "set": {
+       "field": "cluster",
+       "value": {
+        "name": "wazuh",
+        "node": "manager"
+      }
+     },
+     "script": {
+        "source": "if (ctx.containsKey('host_o')) { ctx.host = ctx.host_o.name } else { ctx.host = ctx.hostname } "
+     }
+   }
+  ]
+}

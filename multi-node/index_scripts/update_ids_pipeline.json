@@ -1,0 +1,36 @@
+{
+  "query": {
+    "term": {
+      "manager.name": "prodmonitor"
+    }
+  },
+  "script" : {
+    "source": "ctx._source.agent.id = params[cts.agent.name].value and ctx._source.manager.name = 'wazuh.master'",
+    "lang": "painless",
+    "params" : {
+      "prodredis02":"041",
+      "prodohiodb01" : "023",
+      "prodredis01":"042",
+      "proddb01":"043",
+      "prodweb03":"038",
+      "prodredis03":"039",
+      "prodweb01":"040",
+      "prodops01":"026",
+      "proddb03":"029",
+      "prodbasex01":"031",
+      "prodohiodb02":"030",
+      "prodweb02":"028",
+      "prodjump01":"027",
+      "prodjobs01":"025",
+      "proddbanalytics01":"032",
+      "proddb02":"033",
+      "prodlb01":"034",
+      "ip-10-0-2-6":"035",
+      "prodweb04":"036",
+      "proddrone-server":"037",
+      "proddrone":"037",
+      "ip-10-0-1-9":"044",
+      "prodlb02":"045"
+    }
+  }
+}
