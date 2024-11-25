@@ -5,6 +5,8 @@ services:
     image: wazuh/wazuh-manager:4.9.2
     hostname: wazuh.master
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ulimits:
       memlock:
         soft: -1
@@ -47,6 +49,8 @@ services:
     image: wazuh/wazuh-manager:4.9.2
     hostname: wazuh.worker
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ulimits:
       memlock:
         soft: -1
