@@ -6,6 +6,10 @@ filebeat.modules:
       enabled: true
     archives:
       enabled: false
+      input:
+        paths:
+          - /var/ossec/logs/alerts/alerts.json
+          - /tmp/recovery.json
 
 setup.template.json.enabled: true
 setup.template.overwrite: true

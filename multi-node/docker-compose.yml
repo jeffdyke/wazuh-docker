@@ -44,6 +44,7 @@ services:
       - ./config/wazuh_indexer_ssl_certs/wazuh.master.pem:/etc/ssl/filebeat.pem
       - ./config/wazuh_indexer_ssl_certs/wazuh.master-key.pem:/etc/ssl/filebeat.key
       - ./config/wazuh_cluster/wazuh_manager.conf:/wazuh-config-mount/etc/ossec.conf
+      - /tmp:/tmp
 
   wazuh.worker:
     image: wazuh/wazuh-manager:4.9.2
@@ -82,6 +83,7 @@ services:
       - ./config/wazuh_indexer_ssl_certs/wazuh.worker.pem:/etc/ssl/filebeat.pem
       - ./config/wazuh_indexer_ssl_certs/wazuh.worker-key.pem:/etc/ssl/filebeat.key
       - ./config/wazuh_cluster/wazuh_worker.conf:/wazuh-config-mount/etc/ossec.conf
+      - /tmp:/tmp
 
   wazuh1.indexer:
     image: wazuh/wazuh-indexer:4.9.2
@@ -200,14 +202,14 @@ services:
     volumes:
       - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
 
-  cloudwatch-agent:
-    image: cloudwatch-agent/cloudwatch-agent
-    hostname: cwagent
-    restart: always
-    depends_on:
-      - wazuh.master
-    volumes:
-      - master-wazuh-logs:/var/ossec/logs
+  # cloudwatch-agent:
+  #   image: cloudwatch-agent/cloudwatch-agent
+  #   hostname: cwagent
+  #   restart: always
+  #   depends_on:
+  #     - wazuh.master
+  #   volumes:
+  #     - master-wazuh-logs:/var/ossec/logs
 
 volumes:
   master-wazuh-api-configuration:
