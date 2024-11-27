@@ -83,7 +83,7 @@ services:
       - ./config/wazuh_indexer_ssl_certs/wazuh.worker.pem:/etc/ssl/filebeat.pem
       - ./config/wazuh_indexer_ssl_certs/wazuh.worker-key.pem:/etc/ssl/filebeat.key
       - ./config/wazuh_cluster/wazuh_worker.conf:/wazuh-config-mount/etc/ossec.conf
-      - /tmp:/tmp
+      - /var/wazuh/imports:/var/ossec/imports
 
   wazuh1.indexer:
     image: wazuh/wazuh-indexer:4.9.2
