@@ -4,12 +4,12 @@ filebeat.modules:
   - module: wazuh
     alerts:
       enabled: true
-    archives:
-      enabled: false
       input:
         paths:
           - /var/ossec/logs/alerts/alerts.json
-          - /tmp/recovery.json
+          - /var/ossec/imports/recovery.json
+    archives:
+      enabled: false
 
 setup.template.json.enabled: true
 setup.template.overwrite: true
