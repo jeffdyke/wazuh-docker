@@ -202,14 +202,15 @@ services:
     volumes:
       - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
 
-  # cloudwatch-agent:
-  #   image: amazon/cloudwatch-agent
-  #   hostname: cwagent
-  #   restart: always
-  #   depends_on:
-  #     - wazuh.master
-  #   volumes:
-  #     - master-wazuh-logs:/var/ossec/logs
+  cloudwatch-agent:
+    image: amazon/cloudwatch-agent
+    hostname: cwagent
+    restart: always
+    depends_on:
+      - wazuh.master
+    volumes:
+      - master-wazuh-logs:/var/ossec/logs
+      - ./config/cwagent.json:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 
 volumes:
   master-wazuh-api-configuration:
