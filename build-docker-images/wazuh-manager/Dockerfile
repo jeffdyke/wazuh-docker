@@ -32,7 +32,7 @@ RUN yum install wazuh-manager-${WAZUH_VERSION}-${WAZUH_TAG_REVISION} -y && \
     tar xzf /tmp/s6-overlay-amd64.tar.gz -C /usr ./bin && \
     rm  /tmp/s6-overlay-amd64.tar.gz && \
     mkdir -p /opt/aws/amazon-cloudwatch-agent/etc && \
-    yum install amazon-cloudwatch-agent
+    yum install amazon-cloudwatch-agent -y
 
 COPY config/cwagent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 COPY config/etc/ /etc/
