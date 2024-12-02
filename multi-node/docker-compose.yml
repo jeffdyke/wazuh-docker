@@ -210,7 +210,7 @@ services:
       - wazuh.master
     volumes:
       - master-wazuh-logs:/var/ossec/logs
-      - ./config/cwagent.json:/etc/cwagentconfig/amazon-cloudwatch-agent.json
+
 
 volumes:
   master-wazuh-api-configuration:
