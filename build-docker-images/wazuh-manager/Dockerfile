@@ -20,7 +20,7 @@ COPY config/permanent_data.env config/permanent_data.sh /
 
 RUN chmod 775 /check_repository.sh
 RUN source /check_repository.sh
-
+COPY config/cwagent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 RUN yum install wazuh-manager-${WAZUH_VERSION}-${WAZUH_TAG_REVISION} -y && \
     yum clean all && \
     chmod 775 /filebeat_module.sh && \
@@ -30,7 +30,10 @@ RUN yum install wazuh-manager-${WAZUH_VERSION}-${WAZUH_TAG_REVISION} -y && \
     -o /tmp/s6-overlay-amd64.tar.gz && \
     tar xzf /tmp/s6-overlay-amd64.tar.gz -C / --exclude="./bin" && \
     tar xzf /tmp/s6-overlay-amd64.tar.gz -C /usr ./bin && \
-    rm  /tmp/s6-overlay-amd64.tar.gz
+    rm  /tmp/s6-overlay-amd64.tar.gz && \
+    yum install amazon-cloudwatch-agent && \
+    mkdir -p /opt/aws/amazon-cloudwatch-agent/etc
+
 
 COPY config/etc/ /etc/
 COPY --chown=root:wazuh config/create_user.py /var/ossec/framework/scripts/create_user.py
