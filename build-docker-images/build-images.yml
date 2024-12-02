@@ -80,6 +80,13 @@ services:
       - wazuh.indexer:wazuh.indexer
       - wazuh.manager:wazuh.manager
 
+  cloudwatch-agent:
+    build:
+      context: cwagent/
+    image: amazon/cloudwatch-agent
+    hostname: cwagent
+    restart: always
+
 volumes:
   wazuh_api_configuration:
   wazuh_etc:
