@@ -81,8 +81,6 @@ services:
       - wazuh.manager:wazuh.manager
 
   cloudwatch-agent:
-    build:
-      context: cwagent/
     image: amazon/cloudwatch-agent
     hostname: cwagent
     restart: always
