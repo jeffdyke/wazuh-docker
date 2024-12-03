@@ -1,5 +1,5 @@
 # Wazuh App Copyright (C) 2017, Wazuh Inc. (License GPLv2)
-version: '3.7'
+#version: '3.7'
 
 services:
   wazuh.manager:
@@ -84,6 +84,8 @@ services:
     image: amazon/cloudwatch-agent
     hostname: cwagent
     restart: always
+    build:
+      context: cloudwatch-agent/
 
 volumes:
   wazuh_api_configuration:
