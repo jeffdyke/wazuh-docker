@@ -204,7 +204,7 @@ services:
 
   cloudwatch-agent:
     image: amazon/cloudwatch-agent
-    hostname: cwagent
+    hostname: wazuh.cwagent
     restart: always
     depends_on:
       - wazuh.master
@@ -219,7 +219,6 @@ services:
       - wazuh.master
     volumes:
       - master-wazuh-logs:/var/ossec/logs
-
 
 volumes:
   master-wazuh-api-configuration:

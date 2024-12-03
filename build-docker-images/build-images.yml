@@ -82,10 +82,15 @@ services:
 
   cloudwatch-agent:
     image: amazon/cloudwatch-agent
-    hostname: cwagent
+    hostname: wazuh.cwagent
     restart: always
     build:
       context: cloudwatch-agent/
+      args:
+        - REGION=${REGION}
+        - LOG_GROUP_NAME=${LOG_GROUP_NAME}
+        - LOG_STREAM_NAME=${LOG_STREAM_NAME}
+
 
   cron-backup:
     image: alpine:latest
@@ -93,6 +98,8 @@ services:
     restart: always
     build:
       context: cron-backup/
+      args:
+        - S3_ENV_PATH=${S3_ENV_PATH}
 
 volumes:
   wazuh_api_configuration:
