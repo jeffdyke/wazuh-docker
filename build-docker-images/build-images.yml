@@ -87,6 +87,13 @@ services:
     build:
       context: cloudwatch-agent/
 
+  cron-backup:
+    image: alpine:latest
+    hostname: wazuh.cron
+    restart: always
+    build:
+      context: cron-backup/
+
 volumes:
   wazuh_api_configuration:
   wazuh_etc:
