@@ -52,7 +52,7 @@ services:
     ports:
       - "9200:9200"
     environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       <<: *ulimits
     volumes:
@@ -70,7 +70,7 @@ services:
     hostname: wazuh.dashboard
     restart: always
     ports:
-      - 443:5601
+      - 80:80
     environment:
       - INDEXER_USERNAME=admin
       - INDEXER_PASSWORD=SecretPassword
