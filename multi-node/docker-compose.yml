@@ -2,7 +2,7 @@
 
 services:
   wazuh.master:
-    image: wazuh/wazuh-manager:4.9.2
+    image: wazuh/wazuh-manager:4.10.1
     hostname: wazuh.master
     restart: always
     extra_hosts:
@@ -47,7 +47,7 @@ services:
       - /var/wazuh/imports:/var/ossec/imports
 
   wazuh.worker:
-    image: wazuh/wazuh-manager:4.9.2
+    image: wazuh/wazuh-manager:4.10.1
     hostname: wazuh.worker
     restart: always
     extra_hosts:
@@ -86,13 +86,13 @@ services:
       - /var/wazuh/imports:/var/ossec/imports
 
   wazuh1.indexer:
-    image: wazuh/wazuh-indexer:4.9.2
+    image: wazuh/wazuh-indexer:4.10.1
     hostname: wazuh1.indexer
     restart: always
     ports:
       - "9200:9200"
     environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
       - "bootstrap.memory_lock=true"
     ulimits:
       memlock:
@@ -113,11 +113,11 @@ services:
       - /var/migrate-repository:/mnt/backups:shared
 
   wazuh2.indexer:
-    image: wazuh/wazuh-indexer:4.9.2
+    image: wazuh/wazuh-indexer:4.10.1
     hostname: wazuh2.indexer
     restart: always
     environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
       - "bootstrap.memory_lock=true"
     ulimits:
       memlock:
@@ -136,11 +136,11 @@ services:
       - /var/migrate-repository:/mnt/backups:shared
 
   wazuh3.indexer:
-    image: wazuh/wazuh-indexer:4.9.2
+    image: wazuh/wazuh-indexer:4.10.1
     hostname: wazuh3.indexer
     restart: always
     environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
       - "bootstrap.memory_lock=true"
     ulimits:
       memlock:
@@ -159,7 +159,7 @@ services:
       - /var/migrate-repository:/mnt/backups:shared
 
   wazuh.dashboard:
-    image: wazuh/wazuh-dashboard:4.9.2
+    image: wazuh/wazuh-dashboard:4.10.1
     hostname: wazuh.dashboard
     restart: always
     ports:
