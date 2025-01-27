@@ -42,6 +42,7 @@ nodes_server=$( cert_parseYaml /config.yml | grep -E "nodes[_]+server[_]+[0-9]+=
 node_names=($nodes_server)
 
 echo "Moving created certificates to the destination directory"
+echo $(ls -la /wazuh-certificates/)
 cp /wazuh-certificates/* /certificates/
 echo "Changing certificate permissions"
 chmod -R 500 /certificates
