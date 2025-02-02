@@ -1,1 +1,1 @@
-0 00 05 ? * * * /usr/bin/aws s3 sync /var/ossec/logs/alerts s3://S3_TMPL_PATH --only-show-errors
+@daily /usr/bin/aws s3 sync /var/ossec/logs/alerts s3://S3_TMPL_PATH --only-show-errors
