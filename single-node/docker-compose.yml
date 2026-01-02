@@ -52,7 +52,7 @@ services:
     ports:
       - "9200:9200"
     environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
     ulimits:
       <<: *ulimits
     volumes:

@@ -148,7 +148,7 @@ services:
     hostname: wazuh3.indexer
     restart: always
     environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
       - "bootstrap.memory_lock=true"
     ulimits:
       memlock:
