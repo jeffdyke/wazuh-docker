@@ -9,7 +9,7 @@ RUN apt-get update &&  \
     mkdir /etc/cwagentconfig
 
 COPY ./config/cwagent.json /root/cwagent_tmpl.json
-RUN jq '.logs.logs_collected.files.collect_list[0].log_stream_name = "${LOG_STREAM_NAME}" | .logs.logs_collected.files.collect_list[0].log_group_name="${LOG_GROUP_NAME}" | .agent.region = "${REGION}' /root/cwagent_tmpl.json > /etc/cwagentconfig/cwagent.json
+RUN jq '.logs.logs_collected.files.collect_list[0].log_stream_name = "${LOG_STREAM_NAME}" | .logs.logs_collected.files.collect_list[0].log_group_name="${LOG_GROUP_NAME}" | .agent.region = "${REGION}"' /root/cwagent_tmpl.json > /etc/cwagentconfig/cwagent.json
 RUN curl -O https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb && \
     dpkg -i -E amazon-cloudwatch-agent.deb && \
     rm -rf /tmp/* && \
