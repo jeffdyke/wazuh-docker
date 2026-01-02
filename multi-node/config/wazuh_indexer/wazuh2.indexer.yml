@@ -1,15 +1,16 @@
 network.host: wazuh2.indexer
 node.name: wazuh2.indexer
-cluster.initial_master_nodes:
-        - wazuh1.indexer
-        - wazuh2.indexer
-        - wazuh3.indexer
+#cluster.initial_master_nodes:
+#        - wazuh1.indexer
+#        - wazuh2.indexer
+#        - wazuh3.indexer
 cluster.name: "wazuh-cluster"
-discovery.seed_hosts:
-        - wazuh1.indexer
-        - wazuh2.indexer
-        - wazuh3.indexer
-node.max_local_storage_nodes: "3"
+#discovery.seed_hosts:
+#        - wazuh1.indexer
+#        - wazuh2.indexer
+#        - wazuh3.indexer
+discovery.type: "single-node"
+#node.max_local_storage_nodes: "3"
 path.data: /var/lib/wazuh-indexer
 path.logs: /var/log/wazuh-indexer
 path.repo: /mnt/backups
@@ -35,5 +36,6 @@ plugins.security.restapi.roles_enabled:
 - "all_access"
 - "security_rest_api_access"
 plugins.security.allow_default_init_securityindex: true
+plugins.query.datasources.encryption.masterkey: "XzuYvc5pTv4wWhJWNIh59m6cyf4iMhcZ"
 cluster.routing.allocation.disk.threshold_enabled: false
 compatibility.override_main_response_version: true

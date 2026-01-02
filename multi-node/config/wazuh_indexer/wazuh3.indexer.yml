@@ -35,5 +35,6 @@ plugins.security.restapi.roles_enabled:
 - "all_access"
 - "security_rest_api_access"
 plugins.security.allow_default_init_securityindex: true
+plugins.query.datasources.encryption.masterkey: "XzuYvc5pTv4wWhJWNIh59m6cyf4iMhcZ"
 cluster.routing.allocation.disk.threshold_enabled: false
 compatibility.override_main_response_version: true

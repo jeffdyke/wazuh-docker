@@ -2,7 +2,7 @@
 
 services:
   wazuh.master:
-    image: wazuh/wazuh-manager:4.10.1
+    image: wazuh/wazuh-manager:4.14.0
     hostname: wazuh.master
     restart: always
     extra_hosts:
@@ -47,7 +47,7 @@ services:
       - /var/wazuh/imports:/var/ossec/imports
 
   wazuh.worker:
-    image: wazuh/wazuh-manager:4.10.1
+    image: wazuh/wazuh-manager:4.14.0
     hostname: wazuh.worker
     restart: always
     extra_hosts:
@@ -86,7 +86,7 @@ services:
       - /var/wazuh/imports:/var/ossec/imports
 
   wazuh1.indexer:
-    image: wazuh/wazuh-indexer:4.10.1
+    image: wazuh/wazuh-indexer:4.14.0
     hostname: wazuh1.indexer
     restart: always
     ports:
@@ -101,6 +101,10 @@ services:
       nofile:
         soft: 65536
         hard: 65536
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
     volumes:
       - wazuh-indexer-data-1:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
@@ -113,7 +117,7 @@ services:
       - /var/migrate-repository:/mnt/backups:shared
 
   wazuh2.indexer:
-    image: wazuh/wazuh-indexer:4.10.1
+    image: wazuh/wazuh-indexer:4.14.0
     hostname: wazuh2.indexer
     restart: always
     environment:
@@ -126,6 +130,10 @@ services:
       nofile:
         soft: 65536
         hard: 65536
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
     volumes:
       - wazuh-indexer-data-2:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
@@ -136,7 +144,7 @@ services:
       - /var/migrate-repository:/mnt/backups:shared
 
   wazuh3.indexer:
-    image: wazuh/wazuh-indexer:4.10.1
+    image: wazuh/wazuh-indexer:4.14.0
     hostname: wazuh3.indexer
     restart: always
     environment:
@@ -149,6 +157,10 @@ services:
       nofile:
         soft: 65536
         hard: 65536
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
     volumes:
       - wazuh-indexer-data-3:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
@@ -159,7 +171,7 @@ services:
       - /var/migrate-repository:/mnt/backups:shared
 
   wazuh.dashboard:
-    image: wazuh/wazuh-dashboard:4.10.1
+    image: wazuh/wazuh-dashboard:4.14.0
     hostname: wazuh.dashboard
     restart: always
     ports:
