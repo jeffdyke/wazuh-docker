@@ -1,0 +1,9 @@
+nodes:
+  # Wazuh indexer server nodes
+  indexer:
+    - name: wazuh1-warm.indexer
+      ip: wazuh1-warm.indexer
+    - name: wazuh2-warm.indexer
+      ip: wazuh2-warm.indexer
+    - name: wazuh3-warm.indexer
+      ip: wazuh3-warm.indexer

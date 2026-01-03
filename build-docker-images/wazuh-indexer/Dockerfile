@@ -43,7 +43,7 @@ ENV USER="wazuh-indexer" \
     NAME="wazuh-indexer" \
     INSTALL_DIR="/usr/share/wazuh-indexer"
 
-RUN yum install curl-minimal shadow-utils findutils hostname vim -y
+RUN yum install curl-minimal shadow-utils findutils hostname vim sudo -y
 
 RUN getent group $GROUP || groupadd -r -g 1000 $GROUP
 
