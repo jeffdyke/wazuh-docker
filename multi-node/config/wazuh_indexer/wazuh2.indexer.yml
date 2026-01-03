@@ -1,16 +1,16 @@
 network.host: wazuh2.indexer
 node.name: wazuh2.indexer
-#cluster.initial_master_nodes:
-#        - wazuh1.indexer
-#        - wazuh2.indexer
-#        - wazuh3.indexer
+cluster.initial_master_nodes:
+       - wazuh1.indexer
+       - wazuh2.indexer
+       - wazuh3.indexer
 cluster.name: "wazuh-cluster"
-#discovery.seed_hosts:
-#        - wazuh1.indexer
-#        - wazuh2.indexer
-#        - wazuh3.indexer
-discovery.type: "single-node"
-#node.max_local_storage_nodes: "3"
+discovery.seed_hosts:
+       - wazuh1.indexer
+       - wazuh2.indexer
+       - wazuh3.indexer
+# discovery.type: "single-node"
+node.max_local_storage_nodes: "3"
 path.data: /var/lib/wazuh-indexer
 path.logs: /var/log/wazuh-indexer
 path.repo: /mnt/backups
