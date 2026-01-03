@@ -1,5 +1,6 @@
 network.host: wazuh1.indexer
 node.name: wazuh1.indexer
+node.attr.temp: hot
 cluster.initial_master_nodes:
         - wazuh1.indexer
         - wazuh2.indexer

@@ -42,6 +42,8 @@ services:
       args:
         WAZUH_VERSION: ${WAZUH_VERSION}
         WAZUH_TAG_REVISION: ${WAZUH_TAG_REVISION}
+        WAZUH_NODE_TYPE: hot
+        WAZUH_BUILD_FILE: build-images.yml
     image: wazuh/wazuh-indexer:${WAZUH_IMAGE_VERSION}
     hostname: wazuh.indexer
     restart: always

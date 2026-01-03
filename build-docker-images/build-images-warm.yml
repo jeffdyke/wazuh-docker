@@ -1,0 +1,39 @@
+# Wazuh App Copyright (C) 2017, Wazuh Inc. (License GPLv2)
+#version: '3.7'
+
+services:
+  wazuh.indexer:
+    build:
+      context: wazuh-indexer/
+      args:
+        WAZUH_VERSION: ${WAZUH_VERSION}
+        WAZUH_TAG_REVISION: ${WAZUH_TAG_REVISION}
+        WAZUH_NODE_TYPE: warm
+        WAZUH_BUILD_FILE: build-images-warm.yml
+    image: wazuh/wazuh-indexer:${WAZUH_IMAGE_VERSION}
+    hostname: wazuh.indexer
+    restart: always
+    ports:
+      - "9200:9200"
+    environment:
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+
+volumes:
+  wazuh_api_configuration:
+  wazuh_etc:
+  wazuh_logs:
+  wazuh_queue:
+  wazuh_var_multigroups:
+  wazuh_integrations:
+  wazuh_active_response:
+  wazuh_agentless:
+  wazuh_wodles:
+  filebeat_etc:
+  filebeat_var:

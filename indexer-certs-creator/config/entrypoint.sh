@@ -36,7 +36,7 @@ chmod 700 /$CERT_TOOL
 # Creating Cluster certificates
 ##############################################################################
 set -x
-## Execute cert tool and parsin cert.yml to set UID permissions
+## Execute cert tool and parsing cert.yml to set UID permissions
 source /$CERT_TOOL -A
 nodes_server=$( cert_parseYaml /config.yml | grep -E "nodes[_]+server[_]+[0-9]+=" | sed -e 's/nodes__server__[0-9]=//' | sed 's/"//g' )
 node_names=($nodes_server)

@@ -94,6 +94,7 @@ services:
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
       - "bootstrap.memory_lock=true"
+      - "WAZUH_INDEXER_NODE_TYPE=hot"
     ulimits:
       memlock:
         soft: -1
@@ -123,6 +124,7 @@ services:
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
       - "bootstrap.memory_lock=true"
+      - "WAZUH_INDEXER_NODE_TYPE=hot"
     ulimits:
       memlock:
         soft: -1
@@ -141,7 +143,7 @@ services:
       - ./config/wazuh_indexer_ssl_certs/wazuh2.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh2.indexer.pem
       - ./config/wazuh_indexer/wazuh2.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
       - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
-      - /var/migrate-repository:/mnt/backups:shared
+
 
   wazuh3.indexer:
     image: wazuh/wazuh-indexer:4.14.0
@@ -150,6 +152,7 @@ services:
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
       - "bootstrap.memory_lock=true"
+      - "WAZUH_INDEXER_NODE_TYPE=hot"
     ulimits:
       memlock:
         soft: -1
@@ -168,7 +171,6 @@ services:
       - ./config/wazuh_indexer_ssl_certs/wazuh3.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh3.indexer.pem
       - ./config/wazuh_indexer/wazuh3.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
       - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
-      - /var/migrate-repository:/mnt/backups:shared
 
   wazuh.dashboard:
     image: wazuh/wazuh-dashboard:4.14.0

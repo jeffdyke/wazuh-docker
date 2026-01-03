@@ -10,6 +10,7 @@ services:
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
       - "bootstrap.memory_lock=true"
+      - "WAZUH_INDEXER_NODE_TYPE=warm"
     ulimits:
       memlock:
         soft: -1
@@ -22,13 +23,13 @@ services:
         limits:
           cpus: "1.5"
     volumes:
-      - wazuh-indexer-data-1:/var/lib/wazuh-indexer
+      - wazuh-indexer-data-warm-1:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
-      - ./config/wazuh_indexer_ssl_certs/wazuh1.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh1.indexer.key
-      - ./config/wazuh_indexer_ssl_certs/wazuh1.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh1.indexer.pem
+      - ./config/wazuh_indexer_ssl_certs/wazuh1-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh1-warm.indexer.key
+      - ./config/wazuh_indexer_ssl_certs/wazuh1-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh1-warm.indexer.pem
       - ./config/wazuh_indexer_ssl_certs/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem
       - ./config/wazuh_indexer_ssl_certs/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem
-      - ./config/wazuh_indexer/wazuh1.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
+      - ./config/wazuh_indexer/wazuh1-warm.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
       - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
 
   wazuh2.indexer:
@@ -38,6 +39,7 @@ services:
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
       - "bootstrap.memory_lock=true"
+      - "WAZUH_INDEXER_NODE_TYPE=warm"
     ulimits:
       memlock:
         soft: -1
@@ -50,20 +52,21 @@ services:
         limits:
           cpus: "1.5"
     volumes:
-      - wazuh-indexer-data-2:/var/lib/wazuh-indexer
+      - wazuh-indexer-data-warm-2:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
-      - ./config/wazuh_indexer_ssl_certs/wazuh2.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh2.indexer.key
-      - ./config/wazuh_indexer_ssl_certs/wazuh2.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh2.indexer.pem
-      - ./config/wazuh_indexer/wazuh2.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
+      - ./config/wazuh_indexer_ssl_certs/wazuh2-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh2-warm.indexer.key
+      - ./config/wazuh_indexer_ssl_certs/wazuh2-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh2-warm.indexer.pem
+      - ./config/wazuh_indexer/wazuh2-warm.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
       - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
 
-  wazuh3.indexer:
+  wazuh3-warm.indexer:
     image: wazuh/wazuh-indexer:4.14.1
     hostname: wazuh3-warm.indexer
     restart: always
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
       - "bootstrap.memory_lock=true"
+      - "WAZUH_INDEXER_NODE_TYPE=warm"
     ulimits:
       memlock:
         soft: -1
@@ -76,15 +79,15 @@ services:
         limits:
           cpus: "1.5"
     volumes:
-      - wazuh-indexer-data-3:/var/lib/wazuh-indexer
+      - wazuh-indexer-data-warm-3:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
-      - ./config/wazuh_indexer_ssl_certs/wazuh3.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh3.indexer.key
-      - ./config/wazuh_indexer_ssl_certs/wazuh3.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh3.indexer.pem
-      - ./config/wazuh_indexer/wazuh3.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
+      - ./config/wazuh_indexer_ssl_certs/wazuh3-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh3-warm.indexer.key
+      - ./config/wazuh_indexer_ssl_certs/wazuh3-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh3-warm.indexer.pem
+      - ./config/wazuh_indexer/wazuh3-warm.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
       - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
 
 
 volumes:
-  wazuh-indexer-data-1:
-  wazuh-indexer-data-2:
-  wazuh-indexer-data-3:
+  wazuh-indexer-data-warm-1:
+  wazuh-indexer-data-warm-2:
+  wazuh-indexer-data-warm-3:
