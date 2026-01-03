@@ -3,7 +3,7 @@ FROM amazonlinux:2023 AS builder
 
 ARG WAZUH_VERSION
 ARG WAZUH_TAG_REVISION
-
+ARG WAZUH_NODE_TYPE
 RUN yum install curl-minimal openssl xz tar findutils shadow-utils -y
 
 COPY config/check_repository.sh /
@@ -27,7 +27,7 @@ COPY config/roles_mapping.yml /
 
 COPY config/roles.yml /
 
-RUN bash config.sh
+RUN bash config.sh ${WAZUH_NODE_TYPE}
 
 ################################################################################
 # Build stage 1 (the actual Wazuh indexer image):
@@ -43,7 +43,7 @@ ENV USER="wazuh-indexer" \
     NAME="wazuh-indexer" \
     INSTALL_DIR="/usr/share/wazuh-indexer"
 
-RUN yum install curl-minimal shadow-utils findutils hostname -y
+RUN yum install curl-minimal shadow-utils findutils hostname vim -y
 
 RUN getent group $GROUP || groupadd -r -g 1000 $GROUP
 

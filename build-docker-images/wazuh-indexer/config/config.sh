@@ -1,5 +1,12 @@
 # Wazuh Docker Copyright (C) 2017, Wazuh Inc. (License GPLv2)
 # This has to be exported to make some magic below work.
+if [ -z "${1}" ]; then
+  export WAZUH_NODE_TYPE="hot"
+  export WAZUH_BUILD_FILE="build-images.yml"
+else
+  export WAZUH_NODE_TYPE="${1}"
+  export WAZUH_BUILD_FILE="build-images-${WAZUH_NODE_TYPE}.yml"
+fi
 export DH_OPTIONS
 
 export NAME=wazuh-indexer
