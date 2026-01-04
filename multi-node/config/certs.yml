@@ -1,24 +1,28 @@
+prodops01: &prodops01 10.0.2.103
+prodops02: &prodops02 10.0.2.235
+
 nodes:
   # Wazuh indexer server nodes
   indexer:
-    - name: wazuh1.indexer
-      ip: wazuh1.indexer
-    - name: wazuh2.indexer
-      ip: wazuh2.indexer
-    - name: wazuh3.indexer
-      ip: wazuh3.indexer
-
+    - name: wazuh1.indexer.bondlink.org
+      ip: *prodops02
+    - name: wazuh2.indexer.bondlink.org
+      ip: *prodops02
+    - name: wazuh3.indexer.bondlink.org
+      ip: *prodops02
+    - name: wazuh-warm.indexer
+      ip: *prodops01
   # Wazuh server nodes
   # Use node_type only with more than one Wazuh manager
   server:
-    - name: wazuh.master
-      ip: wazuh.master
+    - name: wazuh.master.bondlink.org
+      ip: *prodops02
       node_type: master
-    - name: wazuh.worker
-      ip: wazuh.worker
+    - name: wazuh.worker.bondlink.org
+      ip: *prodops02
       node_type: worker
 
   # Wazuh dashboard node
   dashboard:
-    - name: wazuh.dashboard
-      ip: wazuh.dashboard
+    - name: wazuh.dashboard.bondlink.org
+      ip: *prodops02
