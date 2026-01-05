@@ -16,7 +16,7 @@ services:
     ports:
       - "9200:9200"
     environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "OPENSEARCH_JAVA_OPTS=-Xms1G -Xmx1G"
     ulimits:
       memlock:
         soft: -1
