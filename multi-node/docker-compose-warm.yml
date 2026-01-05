@@ -25,8 +25,8 @@ services:
     volumes:
       - wazuh-indexer-data-warm-1:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
-      - ./config/wazuh_indexer_ssl_certs/wazuh1-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-warm1.indexer.key
-      - ./config/wazuh_indexer_ssl_certs/wazuh1-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-warm1.indexer.pem
+      - ./config/wazuh_indexer_ssl_certs/wazuh-warm1.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-warm1.indexer.key
+      - ./config/wazuh_indexer_ssl_certs/wazuh-warm1.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-warm1.indexer.pem
       - ./config/wazuh_indexer_ssl_certs/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem
       - ./config/wazuh_indexer_ssl_certs/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem
       - ./config/wazuh_indexer/wazuh-warm1.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
