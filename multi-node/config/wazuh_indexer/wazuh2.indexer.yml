@@ -32,7 +32,7 @@ plugins.security.nodes_dn:
 - "CN=wazuh1.indexer,OU=Wazuh,O=Wazuh,L=California,C=US"
 - "CN=wazuh2.indexer,OU=Wazuh,O=Wazuh,L=California,C=US"
 - "CN=wazuh3.indexer,OU=Wazuh,O=Wazuh,L=California,C=US"
-- "CN=wazuh-warm.indexer,OU=Wazuh,O=Wazuh,L=California,C=US"
+- "CN=wazuh-warm1.indexer,OU=Wazuh,O=Wazuh,L=California,C=US"
 - "CN=filebeat,OU=Wazuh,O=Wazuh,L=California,C=US"
 plugins.security.restapi.roles_enabled:
 - "all_access"

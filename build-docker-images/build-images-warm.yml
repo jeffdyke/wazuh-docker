@@ -11,7 +11,7 @@ services:
         WAZUH_NODE_TYPE: warm
         WAZUH_BUILD_FILE: build-images-warm.yml
     image: wazuh/wazuh-indexer:${WAZUH_IMAGE_VERSION}
-    hostname: wazuh-warm.indexer
+    hostname: wazuh-warm1.indexer
     restart: always
     ports:
       - "9200:9200"

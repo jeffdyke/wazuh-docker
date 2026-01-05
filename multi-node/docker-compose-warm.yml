@@ -1,9 +1,9 @@
 # Wazuh App Copyright (C) 2017, Wazuh Inc. (License GPLv2)
 
 services:
-  wazuh-warm.indexer:
+  wazuh-warm1.indexer:
     image: wazuh/wazuh-indexer:4.14.1
-    hostname: wazuh-warm.indexer
+    hostname: wazuh-warm1.indexer
     restart: always
     ports:
       - "9200:9200"
@@ -25,11 +25,11 @@ services:
     volumes:
       - wazuh-indexer-data-warm-1:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
-      - ./config/wazuh_indexer_ssl_certs/wazuh-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-warm.indexer.key
-      - ./config/wazuh_indexer_ssl_certs/wazuh-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-warm.indexer.pem
+      - ./config/wazuh_indexer_ssl_certs/wazuh1-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-warm1.indexer.key
+      - ./config/wazuh_indexer_ssl_certs/wazuh1-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-warm1.indexer.pem
       - ./config/wazuh_indexer_ssl_certs/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem
       - ./config/wazuh_indexer_ssl_certs/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem
-      - ./config/wazuh_indexer/wazuh-warm.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
+      - ./config/wazuh_indexer/wazuh-warm1.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
       - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
 
 volumes:
