@@ -2,7 +2,7 @@ network.host: wazuh-warm1.indexer
 node.name: wazuh-warm1.indexer
 node.attr.temp: warm
 cluster.name: wazuh-cluster
-discovery.seed_hosts: ["single-node"]
+discovery.seed_hosts: ["prodops02"]
 path.data: /var/lib/wazuh-indexer
 path.logs: /var/log/wazuh-indexer
 # path.repo: /mnt/backups
