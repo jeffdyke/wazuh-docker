@@ -20,6 +20,7 @@ plugins.security.ssl.http.pemtrustedcas_filepath: ${OPENSEARCH_PATH_CONF}/certs/
 plugins.security.ssl.transport.pemcert_filepath: ${OPENSEARCH_PATH_CONF}/certs/wazuh1.indexer.pem
 plugins.security.ssl.transport.pemkey_filepath: ${OPENSEARCH_PATH_CONF}/certs/wazuh1.indexer.key
 plugins.security.ssl.transport.pemtrustedcas_filepath: ${OPENSEARCH_PATH_CONF}/certs/root-ca.pem
+plugins.security.ssl.transport.enabled_protocols: ["TLSv1.2"]
 plugins.security.ssl.http.enabled: true
 plugins.security.ssl.transport.enforce_hostname_verification: false
 plugins.security.ssl.transport.resolve_hostname: false
