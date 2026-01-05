@@ -1,9 +1,9 @@
 # Wazuh App Copyright (C) 2017, Wazuh Inc. (License GPLv2)
 
 services:
-  wazuh1.indexer:
+  wazuh-warm.indexer:
     image: wazuh/wazuh-indexer:4.14.1
-    hostname: wazuh1-warm.indexer
+    hostname: wazuh-warm.indexer
     restart: always
     ports:
       - "9200:9200"
@@ -25,69 +25,12 @@ services:
     volumes:
       - wazuh-indexer-data-warm-1:/var/lib/wazuh-indexer
       - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
-      - ./config/wazuh_indexer_ssl_certs/wazuh1-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh1-warm.indexer.key
-      - ./config/wazuh_indexer_ssl_certs/wazuh1-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh1-warm.indexer.pem
+      - ./config/wazuh_indexer_ssl_certs/wazuh-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-warm.indexer.key
+      - ./config/wazuh_indexer_ssl_certs/wazuh-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-warm.indexer.pem
       - ./config/wazuh_indexer_ssl_certs/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem
       - ./config/wazuh_indexer_ssl_certs/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem
-      - ./config/wazuh_indexer/wazuh1-warm.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
+      - ./config/wazuh_indexer/wazuh-warm.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
       - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
-
-  wazuh2.indexer:
-    image: wazuh/wazuh-indexer:4.14.1
-    hostname: wazuh2-warm.indexer
-    restart: always
-    environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
-      - "bootstrap.memory_lock=true"
-      - "WAZUH_INDEXER_NODE_TYPE=warm"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    deploy:
-      resources:
-        limits:
-          cpus: "1.5"
-    volumes:
-      - wazuh-indexer-data-warm-2:/var/lib/wazuh-indexer
-      - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
-      - ./config/wazuh_indexer_ssl_certs/wazuh2-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh2-warm.indexer.key
-      - ./config/wazuh_indexer_ssl_certs/wazuh2-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh2-warm.indexer.pem
-      - ./config/wazuh_indexer/wazuh2-warm.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
-      - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
-
-  wazuh3-warm.indexer:
-    image: wazuh/wazuh-indexer:4.14.1
-    hostname: wazuh3-warm.indexer
-    restart: always
-    environment:
-      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
-      - "bootstrap.memory_lock=true"
-      - "WAZUH_INDEXER_NODE_TYPE=warm"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    deploy:
-      resources:
-        limits:
-          cpus: "1.5"
-    volumes:
-      - wazuh-indexer-data-warm-3:/var/lib/wazuh-indexer
-      - ./config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
-      - ./config/wazuh_indexer_ssl_certs/wazuh3-warm.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh3-warm.indexer.key
-      - ./config/wazuh_indexer_ssl_certs/wazuh3-warm.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh3-warm.indexer.pem
-      - ./config/wazuh_indexer/wazuh3-warm.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
-      - ./config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
-
 
 volumes:
   wazuh-indexer-data-warm-1:
-  wazuh-indexer-data-warm-2:
-  wazuh-indexer-data-warm-3:
