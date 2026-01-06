@@ -46,7 +46,7 @@ services:
       - ./config/wazuh_indexer_ssl_certs/wazuh.master-key.pem:/etc/ssl/filebeat.key
       - ./config/wazuh_cluster/wazuh_manager.conf:/wazuh-config-mount/etc/ossec.conf
       - /var/wazuh/imports:/var/ossec/imports
-
+      - /mnt/backups:/mnt/backups:shared
   wazuh.worker:
     image: wazuh/wazuh-manager:4.14.0
     hostname: wazuh.worker
@@ -86,6 +86,7 @@ services:
       - ./config/wazuh_indexer_ssl_certs/wazuh.worker-key.pem:/etc/ssl/filebeat.key
       - ./config/wazuh_cluster/wazuh_worker.conf:/wazuh-config-mount/etc/ossec.conf
       - /var/wazuh/imports:/var/ossec/imports
+      - /mnt/backups:/mnt/backups:shared
 
   wazuh1.indexer:
     image: wazuh/wazuh-indexer:4.14.0
@@ -195,6 +196,7 @@ services:
       - ./config/wazuh_dashboard/wazuh.yml:/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml
       - wazuh-dashboard-config:/usr/share/wazuh-dashboard/data/wazuh/config
       - wazuh-dashboard-custom:/usr/share/wazuh-dashboard/plugins/wazuh/public/assets/custom
+      - /mnt/backups:/mnt/backups:shared
     depends_on:
       - wazuh1.indexer
     links:
