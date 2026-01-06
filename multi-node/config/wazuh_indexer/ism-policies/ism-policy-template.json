@@ -1,0 +1,110 @@
+{
+  "_comment": "ISM Policy Template - Customize the values below for your use case",
+  "_instructions": {
+    "policy_id": "Unique identifier for the policy",
+    "min_index_age": "Time in hot state before moving to warm (e.g., 30d, 90d, 365d)",
+    "delete_after": "Time before deletion (e.g., 730d for 2 years, or remove delete state to keep forever)",
+    "index_patterns": "Array of index patterns to match (e.g., wazuh-alerts-*, wazuh-archives-*)",
+    "replicas_hot": "Number of replicas in hot state (1 recommended for redundancy)",
+    "replicas_warm": "Number of replicas in warm state (0 saves space on warm tier)"
+  },
+  "policy": {
+    "policy_id": "CHANGE_ME_policy_name",
+    "description": "CHANGE_ME: Description of what this policy does",
+    "schema_version": 17,
+    "error_notification": null,
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [
+          {
+            "retry": {
+              "count": 3,
+              "backoff": "exponential",
+              "delay": "1m"
+            },
+            "allocation": {
+              "require": {
+                "temp": "hot"
+              }
+            }
+          },
+          {
+            "retry": {
+              "count": 3,
+              "backoff": "exponential",
+              "delay": "1m"
+            },
+            "replica_count": {
+              "number_of_replicas": 1
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": {
+              "min_index_age": "CHANGE_ME_days_in_hot_tier"
+            }
+          }
+        ]
+      },
+      {
+        "name": "warm",
+        "actions": [
+          {
+            "retry": {
+              "count": 3,
+              "backoff": "exponential",
+              "delay": "1m"
+            },
+            "allocation": {
+              "require": {
+                "temp": "warm"
+              }
+            }
+          },
+          {
+            "retry": {
+              "count": 3,
+              "backoff": "exponential",
+              "delay": "1m"
+            },
+            "replica_count": {
+              "number_of_replicas": 0
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "delete",
+            "conditions": {
+              "min_index_age": "CHANGE_ME_total_age_before_delete"
+            }
+          }
+        ]
+      },
+      {
+        "name": "delete",
+        "actions": [
+          {
+            "retry": {
+              "count": 3,
+              "backoff": "exponential",
+              "delay": "1m"
+            },
+            "delete": {}
+          }
+        ],
+        "transitions": []
+      }
+    ],
+    "ism_template": [
+      {
+        "index_patterns": ["CHANGE_ME_index_pattern-*"],
+        "priority": 100
+      }
+    ]
+  }
+}
